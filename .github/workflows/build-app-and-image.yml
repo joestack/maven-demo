@@ -11,6 +11,9 @@ on:
 jobs:
   build-and-tag:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 #  v2
@@ -24,10 +27,6 @@ jobs:
       - name: Install Java
         run: |
           sudo apt-get update && sudo apt-get install -y openjdk-25-jdk openjdk-25-jre build-essential maven
-          java -version
-          sudo update-java-alternatives -a
-          java -version
-
 
       - name: maven config
         run: |
@@ -40,7 +39,6 @@ jobs:
       - name: maven Build & Test
         run: |
           # Build steps here
-          #./mvnw package
           jf mvn package -f ./
 
       - name: Build Tag and push Docker Image
