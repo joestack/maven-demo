@@ -10,9 +10,9 @@ on:
       
 jobs:
   build-and-tag:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     container:
-      image: debian:latest
+      image: ubuntu:latest
 
     steps:
       - name: Checkout code
@@ -26,7 +26,7 @@ jobs:
 
       - name: Install Java
         run: |
-          apt-get update && apt-get install -y git openjdk-25-jdk openjdk-25-jre build-essential maven
+          apt-get update && DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install git openjdk-25-jdk openjdk-25-jre build-essential maven
 
       - name: maven config
         run: |
