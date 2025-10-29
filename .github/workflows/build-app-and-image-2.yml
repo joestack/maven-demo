@@ -27,7 +27,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '25'
-          cache: maven
+          #cache: maven
 
       - name: Checkpoint
         run: |
