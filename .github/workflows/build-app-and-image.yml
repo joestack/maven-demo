@@ -27,25 +27,25 @@ jobs:
       - name: Install Java
         run: |
           sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install git openjdk-25-jdk openjdk-25-jre build-essential maven
-          sudo cd /usr/lib/jvm && sudo rm default-java && sudo ln -s java-25-openjdk-arm64 default-java && ls -la 
           sudo update-java-alternatives -a
-          
+          sudo export JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-arm64 && export JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-arm64
+
       - name: Check Java Version
         run: |
           java -version
 
-      # - name: maven config
-      #   run: |
-      #     jf mvn-config \
-      #       --repo-deploy-releases=joepet-libs-release \
-      #       --repo-deploy-snapshots=joepet-libs-snapshot \
-      #       --repo-resolve-releases=joepet-libs-release \
-      #       --repo-resolve-snapshots=oepet-libs-snapshot
+      - name: maven config
+        run: |
+          jf mvn-config \
+            --repo-deploy-releases=joepet-libs-release \
+            --repo-deploy-snapshots=joepet-libs-snapshot \
+            --repo-resolve-releases=joepet-libs-release \
+            --repo-resolve-snapshots=oepet-libs-snapshot
 
-      # - name: maven Build & Test
-      #   run: |
-      #     # Build steps here
-      #     jf mvn package -f ./
+      - name: maven Build & Test
+        run: |
+          # Build steps here
+          jf mvn package -f ./
 
       # - name: Build Tag and push Docker Image
       #   env:
