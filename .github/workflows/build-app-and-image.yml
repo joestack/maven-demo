@@ -10,7 +10,7 @@ on:
       
 jobs:
   build-and-tag:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     container:
       image: debian:latest
 
