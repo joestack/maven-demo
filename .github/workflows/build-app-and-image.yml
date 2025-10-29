@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Java
         run: |
-          apt-get update && apt-get install -y openjdk-25-jdk
+          sudo apt-get update && sudo apt-get install -y openjdk-25-jdk
 
       - name: maven config
         run: |
