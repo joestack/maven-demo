@@ -24,24 +24,28 @@ jobs:
       - name: Install Java
         run: |
           sudo apt-get update && sudo apt-get install -y openjdk-25-jdk
+          java -version
+          sudo update-alternatives --config java
+          java -version
 
-      - name: maven config
-        run: |
-          jf mvn-config \
-            --repo-deploy-releases=joepet-libs-release \
-            --repo-deploy-snapshots=joepet-libs-snapshot \
-            --repo-resolve-releases=joepet-libs-release \
-            --repo-resolve-snapshots=oepet-libs-snapshot
 
-      - name: maven Build & Test
-        run: |
-          # Build steps here
-          #./mvnw package
-          jf mvn package -f ./
+      # - name: maven config
+      #   run: |
+      #     jf mvn-config \
+      #       --repo-deploy-releases=joepet-libs-release \
+      #       --repo-deploy-snapshots=joepet-libs-snapshot \
+      #       --repo-resolve-releases=joepet-libs-release \
+      #       --repo-resolve-snapshots=oepet-libs-snapshot
 
-      - name: Build Tag and push Docker Image
-        env:
-          IMAGE_NAME: joefrog.jfrog.io/petclinic-docker/petclinic-image:${{ github.run_number }}
-        run: |
-          jf docker build -t $IMAGE_NAME .
-          jf docker push $IMAGE_NAME    
+      # - name: maven Build & Test
+      #   run: |
+      #     # Build steps here
+      #     #./mvnw package
+      #     jf mvn package -f ./
+
+      # - name: Build Tag and push Docker Image
+      #   env:
+      #     IMAGE_NAME: joefrog.jfrog.io/petclinic-docker/petclinic-image:${{ github.run_number }}
+      #   run: |
+      #     jf docker build -t $IMAGE_NAME .
+      #     jf docker push $IMAGE_NAME    
