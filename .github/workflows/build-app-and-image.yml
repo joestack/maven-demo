@@ -26,7 +26,7 @@ jobs:
 
       - name: Install Java
         run: |
-          sudo apt-get update && sudo apt-get install -y openjdk-25-jdk openjdk-25-jre build-essential maven
+          apt-get update && apt-get install -y openjdk-25-jdk openjdk-25-jre build-essential maven
 
       - name: maven config
         run: |
