@@ -33,7 +33,7 @@ jobs:
         run: |
           # Build steps here
           #./mvnw package
-          jf mvn -f ./
+          jf mvn package -f ./
 
       - name: Build Tag and push Docker Image
         env:
