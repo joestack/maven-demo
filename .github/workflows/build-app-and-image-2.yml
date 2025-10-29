@@ -31,20 +31,21 @@ jobs:
 
       - name: Checkpoint
         run: |
+          apt-get update && apt-get install maven build-essential
           java -version
 
-      # - name: maven config
-      #   run: |
-      #     jf mvn-config \
-      #       --repo-deploy-releases=joepet-libs-release \
-      #       --repo-deploy-snapshots=joepet-libs-snapshot \
-      #       --repo-resolve-releases=joepet-libs-release \
-      #       --repo-resolve-snapshots=oepet-libs-snapshot
+      - name: maven config
+        run: |
+          jf mvn-config \
+            --repo-deploy-releases=joepet-libs-release \
+            --repo-deploy-snapshots=joepet-libs-snapshot \
+            --repo-resolve-releases=joepet-libs-release \
+            --repo-resolve-snapshots=oepet-libs-snapshot
 
-      # - name: maven Build & Test
-      #   run: |
-      #     # Build steps here
-      #     jf mvn package -f ./
+      - name: maven Build & Test
+        run: |
+          # Build steps here
+          jf mvn package -f ./
 
       # - name: Build Tag and push Docker Image
       #   env:
