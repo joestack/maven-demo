@@ -28,11 +28,12 @@ jobs:
         run: |
           sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install git openjdk-25-jdk openjdk-25-jre build-essential maven
           sudo update-java-alternatives -a
-          sudo export JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-arm64 && export JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-arm64
+          export JAVA_HOME=/usr/lib/jvm/java-1.25.0-openjdk-arm64
 
       - name: Check Java Version
         run: |
           java -version
+          ls -la /usr/lib/jvm/*
 
       - name: maven config
         run: |
