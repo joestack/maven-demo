@@ -1,0 +1,42 @@
+name: Build App and Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  build-and-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 #  v2
+
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: ${{ vars.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+
+      - name: maven config
+        run: |
+          jf mvn-config \
+            --repo-deploy-releases=joepet-libs-release \
+            --repo-deploy-snapshots=joepet-libs-snapshot \
+            --repo-resolve-releases=joepet-libs-release \
+            --repo-resolve-snapshots=oepet-libs-snapshot
+
+      - name: maven Build & Test
+        run: |
+          # Build steps here
+          ./mvnw package
+
+      - name: Build Tag and push Docker Image
+        env:
+          IMAGE_NAME: joefrog.jfrog.io/petclinic-docker/petclinic-image:${{ github.run_number }}
+        run: |
+          jf docker build -t $IMAGE_NAME .
+          jf docker push $IMAGE_NAME    
