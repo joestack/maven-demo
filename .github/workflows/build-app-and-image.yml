@@ -32,7 +32,8 @@ jobs:
       - name: maven Build & Test
         run: |
           # Build steps here
-          ./mvnw package
+          #./mvnw package
+          jf mvn -f ./
 
       - name: Build Tag and push Docker Image
         env:
