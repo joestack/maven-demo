@@ -47,7 +47,7 @@ jobs:
 
       - name: Publish Build Info
         env:
-          JFROG_CLI_BUILD_NAME: petclinic-build-info
+          JFROG_CLI_BUILD_NAME: petclinic-build
           JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
         run: |
           # Sammeln aller relevanten Build-Informationen
