@@ -42,7 +42,5 @@ jobs:
         env:
           IMAGE_NAME: joefrog.jfrog.io/petclinic-docker/petclinic-image:${{ github.run_number }}
         run: |
-          cd build/libs
-          ls -la 
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME    
