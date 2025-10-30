@@ -1,4 +1,4 @@
-name: Build App and Image
+name: petclinic-build
 
 on:
   push:
@@ -44,3 +44,26 @@ jobs:
         run: |
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME    
+
+      - name: Publish Build Info
+        env:
+          JFROG_CLI_BUILD_NAME: petclinic-build-info
+          JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
+        run: |
+          # Sammeln aller relevanten Build-Informationen
+          jf rt build-add-git # connect to git metadata and repo
+          jf rt build-collect-env # show ENV variables
+          jf rt build-publish # push info to rt 
+
+      - name: Scan Docker Image
+        env:
+          IMAGE_NAME: joefrog.jfrog.io/joepet-docker/petclinic-image:${{ github.run_number }}
+        run: |
+          # Führe Xray Scan durch und speichere Ergebnisse als JSON
+          jf docker scan $IMAGE_NAME --format=json > xray-results.json
+      
+      - name: Upload scan results
+        uses: actions/upload-artifact@v4
+        with:
+          name: xray-scan-results
+          path: xray-results.json
