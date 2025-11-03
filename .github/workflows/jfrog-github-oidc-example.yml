@@ -1,4 +1,4 @@
-name: "Setup JFrog CLI OIDC Example"
+name: "petclinic-build"
 on: 
   - push
   - pull_request
