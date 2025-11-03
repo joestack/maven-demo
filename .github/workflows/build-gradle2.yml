@@ -72,4 +72,4 @@ jobs:
           jf rt build-add-git # connect to git metadata and repo
           jf build-scan # Build Info: Security
           jf rt build-collect-env # show ENV variables
-          #jf rt build-publish # push info to rt 
+          jf rt build-publish # push info to rt 
