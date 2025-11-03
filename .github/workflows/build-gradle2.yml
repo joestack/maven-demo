@@ -64,12 +64,14 @@ jobs:
         # use env to override the defaults
         ## [Error] Build petclinic-build is not selected for indexing
         ## so back to env..
-        env:
-          JFROG_CLI_BUILD_NAME: petclinic-build
-          JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
+        ### now I have enabled Admin->XraySettings->IndexedResources->builds->petclini-build
+        ### backout env once again
+        #env:
+        #  JFROG_CLI_BUILD_NAME: petclinic-build
+        #  JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
         run: |
           # Sammeln aller relevanten Build-Informationen
           jf rt build-add-git # connect to git metadata and repo
-          #jf build-scan # Build Info: Security
+          jf build-scan # Build Info: Security
           jf rt build-collect-env # show ENV variables
           jf rt build-publish # push info to rt 
