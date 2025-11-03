@@ -62,9 +62,11 @@ jobs:
         # no longer necessary
         # name and number are automatically set
         # use env to override the defaults
-        #env:
-        #  JFROG_CLI_BUILD_NAME: petclinic-build
-        #  JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
+        ## [Error] Build petclinic-build is not selected for indexing
+        ## so back to env..
+        env:
+          JFROG_CLI_BUILD_NAME: petclinic-build
+          JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
         run: |
           # Sammeln aller relevanten Build-Informationen
           jf rt build-add-git # connect to git metadata and repo
