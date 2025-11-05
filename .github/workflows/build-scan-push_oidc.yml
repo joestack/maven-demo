@@ -12,8 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+ 
       - name: Checkout
         uses: actions/checkout@v4
+ 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
@@ -25,12 +27,14 @@ jobs:
         run: |
           # Ping the server
           jf rt ping
+ 
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '25'
-          #cache: maven
+          cache: maven
+ 
       - name: Source Code Scan
         run: |
           jf audit --gradle --sast --sca --secrets --sbom --format=table > audit-results
@@ -43,11 +47,13 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
+ 
       - name: Gradle config
         run: |
           jf gradlec \
             --repo-deploy=joepet-gradle-release-local \
             --repo-resolve=joepet-gradle-release
+ 
       - name: Gradke Build & Test
         run: |
           # Build steps here
@@ -85,9 +91,9 @@ jobs:
         #  JFROG_CLI_BUILD_NAME: petclinic-build
         #  JFROG_CLI_BUILD_NUMBER: ${{ github.run_number }}
         run: |
-          # Sammeln aller relevanten Build-Informationen
+          # Collect Build-Info
           jf rt build-add-git # connect to git metadata and repo
-          #jf build-scan # Build Info: Security
+          #jf build-scan # Build Info: Security must be after build-publish
           jf rt build-collect-env # show ENV variables
           jf rt build-publish # push info to rt 
           jf build-scan # Build Info: Security
