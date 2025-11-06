@@ -57,7 +57,8 @@ jobs:
       - name: Gradke Build & Test
         run: |
           # Build steps here
-          jf gradle clean build test
+          # jf gradle clean build test
+          jf gradle clean build test artifactoryPublish
 
       - name: Build Tag and push Docker Image
         env:
